@@ -1,0 +1,116 @@
+######################################################################
+# PEGASUS WMS GENERATED DAG FILE
+# DAG split
+# Index = 0, Count = 1
+######################################################################
+MAXJOBS registration 1
+MAXJOBS stagein 10
+MAXJOBS cleanup 4
+MAXJOBS stageout 10
+
+JOB create_dir_split_0_local 00/00/create_dir_split_0_local.sub
+SCRIPT POST create_dir_split_0_local /usr/bin/pegasus-exitcode  -l split-0.exitcode.log -r $RETURN .//00/00/create_dir_split_0_local.out
+PRIORITY create_dir_split_0_local 800
+RETRY create_dir_split_0_local 1
+VARS create_dir_split_0_local +DAGNodeRetry="$(RETRY)"
+
+JOB stage_in_remote_local_0_0 00/00/stage_in_remote_local_0_0.sub
+SCRIPT POST stage_in_remote_local_0_0 /usr/bin/pegasus-exitcode  -l split-0.exitcode.log  .//00/00/stage_in_remote_local_0_0.out
+PRIORITY stage_in_remote_local_0_0 700
+RETRY stage_in_remote_local_0_0 1
+CATEGORY stage_in_remote_local_0_0 stagein
+VARS stage_in_remote_local_0_0 +DAGNodeRetry="$(RETRY)"
+
+JOB split_ID0000001 00/00/split_ID0000001.sub
+SCRIPT POST split_ID0000001 /usr/bin/pegasus-exitcode  -s PegasusLite:+exitcode+0 -l split-0.exitcode.log  .//00/00/split_ID0000001.out
+PRIORITY split_ID0000001 20
+RETRY split_ID0000001 1
+VARS split_ID0000001 +DAGNodeRetry="$(RETRY)"
+
+JOB clean_up_local_level_3_0 00/00/clean_up_local_level_3_0.sub
+SCRIPT POST clean_up_local_level_3_0 /usr/bin/pegasus-exitcode  -l split-0.exitcode.log  .//00/00/clean_up_local_level_3_0.out
+PRIORITY clean_up_local_level_3_0 1000
+RETRY clean_up_local_level_3_0 1
+CATEGORY clean_up_local_level_3_0 cleanup
+VARS clean_up_local_level_3_0 +DAGNodeRetry="$(RETRY)"
+
+JOB wc_ID0000002 00/00/wc_ID0000002.sub
+SCRIPT POST wc_ID0000002 /usr/bin/pegasus-exitcode  -s PegasusLite:+exitcode+0 -l split-0.exitcode.log  .//00/00/wc_ID0000002.out
+PRIORITY wc_ID0000002 30
+RETRY wc_ID0000002 1
+VARS wc_ID0000002 +DAGNodeRetry="$(RETRY)"
+
+JOB wc_ID0000003 00/00/wc_ID0000003.sub
+SCRIPT POST wc_ID0000003 /usr/bin/pegasus-exitcode  -s PegasusLite:+exitcode+0 -l split-0.exitcode.log  .//00/00/wc_ID0000003.out
+PRIORITY wc_ID0000003 30
+RETRY wc_ID0000003 1
+VARS wc_ID0000003 +DAGNodeRetry="$(RETRY)"
+
+JOB wc_ID0000004 00/00/wc_ID0000004.sub
+SCRIPT POST wc_ID0000004 /usr/bin/pegasus-exitcode  -s PegasusLite:+exitcode+0 -l split-0.exitcode.log  .//00/00/wc_ID0000004.out
+PRIORITY wc_ID0000004 30
+RETRY wc_ID0000004 1
+VARS wc_ID0000004 +DAGNodeRetry="$(RETRY)"
+
+JOB wc_ID0000005 00/00/wc_ID0000005.sub
+SCRIPT POST wc_ID0000005 /usr/bin/pegasus-exitcode  -s PegasusLite:+exitcode+0 -l split-0.exitcode.log  .//00/00/wc_ID0000005.out
+PRIORITY wc_ID0000005 30
+RETRY wc_ID0000005 1
+VARS wc_ID0000005 +DAGNodeRetry="$(RETRY)"
+
+JOB stage_out_local_local_1_0 00/00/stage_out_local_local_1_0.sub
+SCRIPT POST stage_out_local_local_1_0 /usr/bin/pegasus-exitcode  -l split-0.exitcode.log  .//00/00/stage_out_local_local_1_0.out
+PRIORITY stage_out_local_local_1_0 900
+RETRY stage_out_local_local_1_0 1
+CATEGORY stage_out_local_local_1_0 stageout
+VARS stage_out_local_local_1_0 +DAGNodeRetry="$(RETRY)"
+
+JOB clean_up_local_level_4_0 00/00/clean_up_local_level_4_0.sub
+SCRIPT POST clean_up_local_level_4_0 /usr/bin/pegasus-exitcode  -l split-0.exitcode.log  .//00/00/clean_up_local_level_4_0.out
+PRIORITY clean_up_local_level_4_0 1000
+RETRY clean_up_local_level_4_0 1
+CATEGORY clean_up_local_level_4_0 cleanup
+VARS clean_up_local_level_4_0 +DAGNodeRetry="$(RETRY)"
+
+JOB register_local_1_0 00/00/register_local_1_0.sub
+SCRIPT POST register_local_1_0 /usr/bin/pegasus-exitcode  -l split-0.exitcode.log  .//00/00/register_local_1_0.out
+PRIORITY register_local_1_0 50
+RETRY register_local_1_0 1
+CATEGORY register_local_1_0 registration
+VARS register_local_1_0 +DAGNodeRetry="$(RETRY)"
+
+JOB clean_up_local_level_5_0 00/00/clean_up_local_level_5_0.sub
+SCRIPT POST clean_up_local_level_5_0 /usr/bin/pegasus-exitcode  -l split-0.exitcode.log  .//00/00/clean_up_local_level_5_0.out
+PRIORITY clean_up_local_level_5_0 1000
+RETRY clean_up_local_level_5_0 1
+CATEGORY clean_up_local_level_5_0 cleanup
+VARS clean_up_local_level_5_0 +DAGNodeRetry="$(RETRY)"
+
+JOB cleanup_split_0_local 00/00/cleanup_split_0_local.sub
+PRIORITY cleanup_split_0_local 1000
+RETRY cleanup_split_0_local 1
+VARS cleanup_split_0_local +DAGNodeRetry="$(RETRY)"
+
+PARENT  stage_in_remote_local_0_0 CHILD split_ID0000001
+PARENT  stage_out_local_local_1_0 CHILD register_local_1_0
+PARENT  stage_out_local_local_1_0 CHILD clean_up_local_level_5_0
+PARENT  clean_up_local_level_3_0 CHILD cleanup_split_0_local
+PARENT  clean_up_local_level_4_0 CHILD cleanup_split_0_local
+PARENT  clean_up_local_level_5_0 CHILD cleanup_split_0_local
+PARENT  wc_ID0000002 CHILD stage_out_local_local_1_0
+PARENT  wc_ID0000002 CHILD clean_up_local_level_4_0
+PARENT  wc_ID0000003 CHILD stage_out_local_local_1_0
+PARENT  wc_ID0000003 CHILD clean_up_local_level_4_0
+PARENT  wc_ID0000004 CHILD stage_out_local_local_1_0
+PARENT  wc_ID0000004 CHILD clean_up_local_level_4_0
+PARENT  wc_ID0000005 CHILD stage_out_local_local_1_0
+PARENT  wc_ID0000005 CHILD clean_up_local_level_4_0
+PARENT  split_ID0000001 CHILD clean_up_local_level_3_0
+PARENT  split_ID0000001 CHILD wc_ID0000002
+PARENT  split_ID0000001 CHILD wc_ID0000003
+PARENT  split_ID0000001 CHILD wc_ID0000004
+PARENT  split_ID0000001 CHILD wc_ID0000005
+PARENT  create_dir_split_0_local CHILD stage_in_remote_local_0_0
+######################################################################
+# End of DAG
+######################################################################
